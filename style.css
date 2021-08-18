@@ -1,0 +1,59 @@
+body {
+    background-color: ghostwhite;
+    
+}
+* {
+    border: 1px solid orange;
+}
+.container {
+    
+    width: 30 vw;
+    min-width: 500px;
+
+    height: 80vh;
+    min-height: 800px;
+
+}
+#display {
+    height: 50px;
+    width: 68vw;
+    min-width: 450px;
+    margin: 5vh auto;
+}
+
+#buttons {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px 20px;
+    width: 65vw;
+    height: 65vh;
+    min-height: 400px;
+    min-width: 400px;
+    justify-content: space-evenly;
+    margin: 5vh auto;
+    padding: 10px;
+
+}
+.grid-item {
+    display: flex;
+    text-align: center;
+    max-width: 400px;
+    max-height:50px;
+    align-items: center; 
+    justify-content: center;
+    
+       
+   
+}
+
+
+#item-19 {
+    grid-row: 5;
+    grid-column: 3 / span 2;
+    
+}
+
+h1 {
+    text-align: center;
+}
