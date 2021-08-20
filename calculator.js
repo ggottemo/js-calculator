@@ -14,7 +14,7 @@ function multiply(x, y) {
 function divide(x, y) {
     return x / y;
 }
-function square(x) {
+function square(x) { //TODO Fix bug with Square when clicking the 2
     return x ** 2;
 }
 function mod(x, y) {
@@ -38,6 +38,7 @@ const calculator = {
     },
     setSecond: function () {
         let display = document.getElementById('display');
+        //Use index of operator to parse second number
         let index = display.innerText.indexOf(calculator.operatorSymbol);
         console.log('Index:' + index);
         let secondHalf = display.innerText.substring(index + 2)
@@ -59,13 +60,20 @@ const calculator = {
         this.operator = null;
         this.operatorSymbol = null;
     },
+    //computes operation, sets new variable, updates screen with answer.
+    run : function() {
+        let result = operate(this.operator, this.firstNum, this.secondNum);
+        document.getElementById('display').innerHTML  = result;
+        this.setFirst(String(result));
+        return result;
+    }
 };
 
 //operate (operator, x, y )
 //accepts an operator, and two numbers, calling the operator function
 //on the two numbers
 function operate(operator, x, y) {
-    window[operator](x, y);
+    return window[operator](x, y);
 }
 //display(int x) -> Updates display with number or operator.
 function display(x) {
@@ -86,7 +94,7 @@ function clearDisplay() {
     display.innerHTML = "";
     calculator.reset();
 }
-
+//TODO handle hitting stringing multiple operators together
 //addListeners() -> Function that adds on click event listeners
 //based on the button clicked.
 function addListeners() {
@@ -98,9 +106,15 @@ function addListeners() {
                     console.log('c');
                     clearDisplay();
                     break;
+                case 'sup':
+                    //Clicking the superscript was adding 2 to the 
+                    //display so this makes it have the same rule
+                    //as the rest of the button
                 case 'item-2':          // SQUARE
                     console.log('x^2');
                     calculator.setOperator('square');
+                    display('');
+                    calculator.run();
                     break;
                 case 'item-3':          // MOD
                     console.log('%');
@@ -112,25 +126,30 @@ function addListeners() {
                     console.log('/');
                     calculator.setOperator('divide');
                     calculator.setOperatorSymbol('/');
+                    display('/');
                     break;
                 case 'item-8':          // MULTIPLY
                     console.log('x');
                     calculator.setOperator('multiply');
                     calculator.setOperatorSymbol('x');
+                    display('x');
                     break;
                 case 'item-12':         // SUBTRACT
                     console.log('-');
                     calculator.setOperator("subtract");
                     calculator.setOperatorSymbol('-'); 
+                    display('-');
                     break;
                 case 'item-16':         // ADD
                     calculator.setOperator("add")
                     calculator.setOperatorSymbol('+');
+                    display('+');
                     break;
                 case 'item-19':         // OPERATE
                     if (calculator.operator != null) {
                         calculator.setSecond();
                         console.log("Second num " + calculator.secondNum);
+                        calculator.run();
                     }
                     console.log('=');
                     break;
